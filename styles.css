@@ -3,12 +3,21 @@ html {
   width: 100%;
 }
 
+.contenedor {
+  background-color: #45a049;
+  width: 50%;
+  height: 100vh;
+  justify-content: center;
+  text-align: center;
+  margin: auto;
+}
+
 .lista-task {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
-  margin: 5px 0;
+  padding: 20px;
+  margin: 5px 5px;
   border: 1px solid #c1bfca;
   border-radius: 5px;
   background-color: #f9f9f9;

@@ -16,31 +16,45 @@ function agregarTask() {
   if (valorCampo.length === 0) {
     return false;
   }
+  const nuevatarea = createTarea(valorCampo);
+  lista.appendChild(nuevatarea);
+  input.value = " ";
+}
 
-  const newElemet = document.createElement("li");
-  newElemet.classList.add("lista-task");
-  newElemet.textContent = valorCampo;
+function createTarea(valorCampo) {
+  const nuevatarea = document.createElement("li");
+  nuevatarea.classList.add("lista-task");
+  nuevatarea.textContent = valorCampo;
 
-  const botonTareaCompletada = document.createElement("button");
-  botonTareaCompletada.id = "completada";
-  botonTareaCompletada.classList.add("boton-completado");
-  botonTareaCompletada.textContent = "completada";
+  const botonTareaCompletada = createButton("Completada", "boton-completado");
+  botonTareaCompletada.addEventListener("click", handleTareaCompletada);
 
-  const botonEliminarTarea = document.createElement("button");
-  botonEliminarTarea.id = "eliminar";
-  botonEliminarTarea.classList.add("boton-eliminada");
-  botonEliminarTarea.textContent = "eliminar";
+  const botonEliminarTarea = createButton("Eliminar", "boton-eliminada");
+  botonEliminarTarea.addEventListener("click", handleTareaEliminada);
 
-  botonTareaCompletada.addEventListener("click", function () {
-    newElemet.classList.add("tarea-completada");
-  });
-  botonEliminarTarea.addEventListener("click", function () {
-    newElemet.textContent = "";
-    newElemet.classList.remove("lista-task");
-    newElemet.style.listStyleType = "none";
-  });
+  nuevatarea.append(botonTareaCompletada, botonEliminarTarea);
+  return nuevatarea;
+}
 
-  newElemet.append(botonTareaCompletada, botonEliminarTarea);
-  lista.appendChild(newElemet);
-  input.value = "";
+function createButton(texto, clase) {
+  const boton = document.createElement("button");
+  boton.classList.add(clase);
+  boton.textContent = texto;
+  return boton;
+}
+
+function handleTareaCompletada(e) {
+  const tarea = e.target.parentNode;
+  tarea.classList.add("tarea-completada");
+}
+
+function handleTareaEliminada(e) {
+  const tarea = e.target.parentNode;
+  tarea.remove();
+}
+
+function handleEnterTeclado(e) {
+  if (e.key === "Enter") {
+    agregarTask();
+  }
 }
